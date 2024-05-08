@@ -10,9 +10,6 @@
     "email": "info@ddem.us"
   },
   "main": "index.js",
-  "engine": {
-    "node": "12.14.1"
-  },
   "scripts": {
     "clean": "rimraf \"dist/\"",
     "check": "npm-run-all -p check:prod check:prod-unused check:dev",
@@ -220,6 +217,8 @@
     "css-loader": "^3.2.0",
     "debug": "^4.1.1",
     "dependency-check": "^3.4.1",
+    "dotenv": "^16.4.5",
+    "dotenv-webpack": "^8.1.0",
     "electron": "^9.4.4",
     "electron-builder": "^22.14.10",
     "electron-devtools-installer": "^3.1.1",

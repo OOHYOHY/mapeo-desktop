@@ -1,4 +1,5 @@
 const path = require('path')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: {
@@ -17,8 +18,6 @@ module.exports = {
     'mime-db',
     '../package.json'
   ],
-  // plugins: [new LiveReloadPlugin()],
-  // plugins: [new BundleAnalyzerPlugin()],
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
@@ -51,5 +50,10 @@ module.exports = {
         loader: 'url-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new Dotenv({
+      systemvars: true
+    })
+  ]
 }
