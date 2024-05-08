@@ -19,19 +19,30 @@ For a mobile application that is compatible with Mapeo Desktop, see [Mapeo Mobil
 
 Read the [online user guide](https://digital-democracy.gitbook.io/mapeo/) for
 information on how to install aerial imagery and tiles, custom configurations,
-and more. 
+and more.
 
 ![architecture](docs/desktop-architecture.png)
 
 ## Getting Started
 
-To clone and install all dependencies and start a process to re-build the app whenever you change a file:
+To clone and install all dependencies:
 
 ```sh
 git clone git@github.com:digidem/mapeo-desktop.git
 cd mapeo-desktop
 npm install
 npm run build:translations
+```
+
+Create a `.env` file at the project root that has the following structure (replace `<your_token_here>` with a valid [Mapbox public access token](https://docs.mapbox.com/help/getting-started/access-tokens/)):
+
+```env
+MAPBOX_ACCESS_TOKEN=<your_token_here>
+```
+
+Start a process to re-build the app whenever you change a file:
+
+```sh
 npm run watch
 ```
 
@@ -56,7 +67,6 @@ tail -f USERDATA/Mapeo/logs/$DATE.debug.log
 ## Contributing
 
 See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for more details.
-
 
 ## Community
 

@@ -1,6 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
 const path = require('path')
 
+require('dotenv').config({
+  path: '../../.env'
+})
+
 module.exports = async function (config) {
   const productName = 'Mapeo for ICCAs'
   return {
@@ -15,7 +19,8 @@ module.exports = async function (config) {
     extraMetadata: {
       name: 'mapeo-icca',
       productName,
-      variant: 'icca'
+      variant: 'icca',
+      mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN
     },
     publish: [
       {
