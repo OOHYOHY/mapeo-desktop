@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.6.3](https://github.com/digidem/mapeo-desktop/compare/v5.6.2...v5.6.3) (2024-05-14)
+
+
+### Bug Fixes
+
+* update mapbox token ([b484674](https://github.com/digidem/mapeo-desktop/commit/b484674))
+
+
+
 ### [5.6.2](https://github.com/digidem/mapeo-desktop/compare/v5.6.1...v5.6.2) (2023-08-31)
 
 
