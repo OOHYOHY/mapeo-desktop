@@ -41,7 +41,8 @@ export function guessValueType (value) {
 
   // Test date last because this is the most expensive
   if (isShortDate(value)) return valueTypes.DATE
-  if (isodate.is(value)) return valueTypes.DATETIME
+  if (isodate.is(value, true) && !isNaN(Date.parse(value)))
+    return valueTypes.DATETIME
 
   return valueTypes.STRING
 }
