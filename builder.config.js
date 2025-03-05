@@ -7,7 +7,7 @@ const { nodeFileTrace } = require('@vercel/nft')
 require('dotenv').config()
 
 const config = {
-  // afterSign: 'bin/notarize.js',
+  afterSign: 'bin/notarize.js',
   detectUpdateChannel: true,
   generateUpdatesFilesForAllChannels: true,
   appId: 'org.digital-democracy.mapeo-desktop',
@@ -28,7 +28,11 @@ const config = {
     target: 'NSIS',
     artifactName: 'Install_Mapeo_v${version}_${os}-${env.ARCH}.${ext}',
     rfc3161TimeStampServer: 'http://timestamp.digicert.com',
-    timeStampServer: 'http://timestamp.digicert.com'
+    timeStampServer: 'http://timestamp.digicert.com',
+    // TODO: Remove these to re-enable code signing on Windows
+    forceCodeSigning: false,
+    signAndEditExecutable: false,
+    sign: async () => {}
   },
   linux: {
     target: ['AppImage', 'deb'],
