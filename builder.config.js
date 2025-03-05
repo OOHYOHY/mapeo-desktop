@@ -4,6 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const { nodeFileTrace } = require('@vercel/nft')
 
+require('dotenv').config()
+
 const config = {
   afterSign: 'bin/notarize.js',
   detectUpdateChannel: true,
@@ -26,7 +28,11 @@ const config = {
     target: 'NSIS',
     artifactName: 'Install_Mapeo_v${version}_${os}-${env.ARCH}.${ext}',
     rfc3161TimeStampServer: 'http://timestamp.digicert.com',
-    timeStampServer: 'http://timestamp.digicert.com'
+    timeStampServer: 'http://timestamp.digicert.com',
+    // TODO: Remove these to re-enable code signing on Windows
+    forceCodeSigning: false,
+    signAndEditExecutable: false,
+    sign: async () => {}
   },
   linux: {
     target: ['AppImage', 'deb'],
@@ -54,7 +60,8 @@ const config = {
     {
       provider: 's3',
       bucket: 'downloads.mapeo.app',
-      path: process.env.ARCH === 'ia32' ? '/desktop/ia32' : '/desktop'
+      path: process.env.ARCH === 'ia32' ? '/desktop/ia32' : '/desktop',
+      publishAutoUpdate: false
     },
     {
       provider: 'github',
@@ -67,7 +74,8 @@ const config = {
       from: path.dirname(require.resolve('mapeo-default-settings')),
       to: 'presets/default'
     }
-  ]
+  ],
+  extraMetadata: { mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN }
 }
 
 const files = [

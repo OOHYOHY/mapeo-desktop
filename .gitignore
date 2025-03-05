@@ -12,3 +12,5 @@ storybook-static
 updates
 temp-resources
 .eslintcache
+.env
+.env*.local

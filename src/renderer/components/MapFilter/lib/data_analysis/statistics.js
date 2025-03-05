@@ -66,7 +66,11 @@ function addItemStats (item = {}, stats) {
   flatObjectEntries(item).forEach(function ([path, value]) {
     const key = JSON.stringify(path)
     if (!stats[key]) stats[key] = defaultStats()
-    addFieldStats(value, stats[key])
+    try {
+      addFieldStats(value, stats[key])
+    } catch (e) {
+      console.error('Error adding field stats for value %s', value, e)
+    }
   })
 }
 
@@ -138,6 +142,7 @@ function addNumberStats (value, stats) {
 
 function addDateTimeStats (value, stats) {
   const dateAsNumber = +Date.parse(value)
+  if (isNaN(dateAsNumber)) return // ignore invalid dates
   stats.count += 1
   const { mean } = statReduce(
     {
