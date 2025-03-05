@@ -15,10 +15,10 @@ jobs:
     strategy:
       matrix:
         config:
-          - { os: macos-11, arch: x64 }
-          - { os: ubuntu-latest, arch: x64 }
-          - { os: windows-latest, arch: x64 }
-          - { os: windows-latest, arch: ia32 }
+          - { os: macos-13, arch: x64 }
+          - { os: ubuntu-24.04, arch: x64 }
+          - { os: windows-2019, arch: x64 }
+          - { os: windows-2019, arch: ia32 }
         variant:
           - main
           - icca
@@ -27,11 +27,11 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Use Node.js 14.18.X
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 14.18
       - name: npm ci
@@ -68,8 +68,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MAPEO_VARIANT: ${{ matrix.variant }}
           MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          CSC_FOR_PULL_REQUEST: "true"
       - name: Publish (unsigned)
         # Currently undocumented, but if it is None (e.g. PR from a fork) then secrets are not defined
         if: github.secret_source != 'Actions'
@@ -84,7 +86,7 @@ jobs:
           npx rimraf@2 'dist/${{ matrix.variant }}/!(*.exe|*.deb|*.AppImage|*.dmg|*.yml|*.zip|github)'
         shell: bash
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: '${{ matrix.config.os }}-${{ matrix.config.arch }}-${{ matrix.variant }}'
           path: dist/${{ matrix.variant }}
