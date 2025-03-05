@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.6.4](https://github.com/digidem/mapeo-desktop/compare/v5.6.3...v5.6.4) (2025-03-05)
+
+
+### Bug Fixes
+
+* strict identification of ISO dates ([#758](https://github.com/digidem/mapeo-desktop/issues/758)) ([dc07b9d](https://github.com/digidem/mapeo-desktop/commit/dc07b9d))
+
+
+
 ### [5.6.3](https://github.com/digidem/mapeo-desktop/compare/v5.6.2...v5.6.3) (2024-05-14)
 
 
