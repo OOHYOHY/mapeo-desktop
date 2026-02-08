@@ -3,7 +3,6 @@
 const path = require('path')
 const minimist = require('minimist');
 const { app } = require('electron');
-const debug = require('electron-debug');
 const isDev = require('electron-is-dev');
 
 const logger = require('./src/logger');
