@@ -39,8 +39,7 @@ var argv = minimist(process.argv.slice(2), {
 if (!logger.configured) {
   logger.configure({
     label: 'main',
-    userDataPath,
-    isDev
+    userDataPath
   })
 }
 
