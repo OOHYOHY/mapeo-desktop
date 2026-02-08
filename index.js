@@ -1,15 +1,15 @@
 #!/usr/bin/env electron
 
 const path = require('path')
-const minimist = require('minimist')
-const { app } = require('electron')
-const debug = require('electron-debug')
-const isDev = require('electron-is-dev')
+const minimist = require('minimist');
+const { app } = require('electron');
+const debug = require('electron-debug');
+const isDev = require('electron-is-dev');
 
-const logger = require('./src/logger')
-const startApp = require('./src/main')
-const cleanUpOrphanProcesses = require('./src/main/pid-cleanup')
-const getPorts = require('./src/utils/get-ports')
+const logger = require('./src/logger');
+const startApp = require('./src/main');
+const cleanUpOrphanProcesses = require('./src/main/pid-cleanup');
+const getPorts = require('./src/utils/get-ports');
 
 // Path to `userData`, operating system specific, see
 // https://github.com/atom/electron/blob/master/docs/api/app.md#appgetpathname
@@ -58,7 +58,7 @@ if (!gotTheLock) {
   process.exit(0)
 }
 
-;(async () => {
+; (async () => {
   // Cleanup any orphaned processes that might be left from the app not closing
   // gracefully last time it loaded. Do this before trying to find available
   // port (since orphaned process could be occupying port)
