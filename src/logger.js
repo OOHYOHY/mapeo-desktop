@@ -1,8 +1,5 @@
-const winston = require('winston')
 const path = require('path')
-const DailyRotateFile = require('winston-daily-rotate-file')
 const util = require('util')
-const { format } = require('date-fns')
 
 const store = require('./persist-store')
 const appVersion = require('./build-config').version
@@ -12,14 +9,14 @@ let Bugsnag
 const BUGSNAG_API_KEY = 'fcd92279c11ac971b4bd29b646ec4125'
 
 class Logger {
-  constructor () {
+  constructor() {
     this.winston = winston.createLogger()
     this.configured = false
     this._messageQueue = []
     this._debug = store.get('debugging')
   }
 
-  configure ({ userDataPath, label, isDev }) {
+  configure({ userDataPath, label, isDev }) {
     this._startBugsnag(isDev ? 'development' : 'production')
     const prettyPrint = winston.format.printf(
       ({ level, message, label, timestamp }) => {
@@ -72,34 +69,34 @@ class Logger {
     if (this._messageQueue.length > 0) this._drainQueue()
   }
 
-  get errorFilename () {
+  get errorFilename() {
     return path.join(this.dirname, format(Date.now(), 'yyyy-MM') + '.error.log')
   }
 
-  debugging (debug) {
+  debugging(debug) {
     this._level(debug ? 'debug' : 'info')
     store.set('debugging', debug)
     this._debug = debug
   }
 
-  _level (level) {
+  _level(level) {
     var port = this.winston.transports.find(t => t.name === 'main')
     if (port) port.level = level
     else this.error('logger', new Error('Could not find transport main'))
   }
 
-  configured () {
+  configured() {
     return this.configured
   }
 
-  _drainQueue () {
+  _drainQueue() {
     while (this._messageQueue.length) {
       var msg = this._messageQueue.pop()
       this._log(msg.level, msg.args)
     }
   }
 
-  _log (level, args) {
+  _log(level, args) {
     if (!this.configured) this._messageQueue.push({ level, args })
     else {
       this.winston.log({
@@ -114,20 +111,20 @@ class Logger {
     }
   }
 
-  warn () {
+  warn() {
     this._log('warn', Array.from(arguments))
   }
 
-  error (context, err) {
+  error(context, err) {
     if (!err) err = context
     this._log('error', [context, err])
   }
 
-  info () {
+  info() {
     this._log('info', Array.from(arguments))
   }
 
-  debug () {
+  debug() {
     this._log('debug', Array.from(arguments))
   }
 
@@ -139,14 +136,14 @@ class Logger {
    * @param {string} msg
    * @returns {Promise<T>}
    */
-  async timedPromise (promise, msg) {
+  async timedPromise(promise, msg) {
     const start = Date.now()
     const result = await promise
     this.info(`${msg} ${Date.now() - start}ms`)
     return result
   }
 
-  _startBugsnag (releaseStage) {
+  _startBugsnag(releaseStage) {
     // This is really hacky because the @bugsnag/js package
     // does not properly handle an electron background
     // window with nodeIntegration: true
@@ -157,7 +154,7 @@ class Logger {
       enabledReleaseStages: ['production']
     }
 
-    setTimeout(function () {}).__proto__.unref = function () {}
+    setTimeout(function () { }).__proto__.unref = function () { }
     try {
       Bugsnag = require('@bugsnag/node')
       Bugsnag.start(args)
