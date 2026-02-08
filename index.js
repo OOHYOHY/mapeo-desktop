@@ -36,10 +36,6 @@ var argv = minimist(process.argv.slice(2), {
   }
 })
 
-// Setup some handy dev tools shortcuts (only activates in dev mode)
-// See https://github.com/sindresorhus/electron-debug
-debug({ showDevTools: false })
-
 // Configure the logger before we do anything
 if (!logger.configured) {
   logger.configure({
